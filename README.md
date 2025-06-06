@@ -118,3 +118,36 @@ For any questions and feedback related to this custom connector, use the [Blackb
 
 - Power BI throws an error when attempting to use the Membership List functionality if the corresponding environment does not have the Membership Module enabled.
 - Power BI throws an error when attempting to use the Event List functionality if the corresponding environment does not have the Event Module enabled.
+
+## ChatGPT integration example
+
+This repository now includes a sample Python script (`chat_bridge.py`) that demonstrates how you could use the OpenAI ChatGPT API to interpret natural language questions and interact with the Blackbaud SKY API.
+
+### Prerequisites
+
+- Python 3
+- Install dependencies with `pip install -r requirements.txt`
+- Environment variables with your credentials (see `.env.example`):
+  - `BLACKBAUD_CLIENT_ID`
+  - `BLACKBAUD_CLIENT_SECRET`
+  - `BLACKBAUD_SUBSCRIPTION_KEY`
+  - `OPENAI_API_KEY`
+
+### Usage
+
+Run the script from the repository root:
+
+```bash
+python chat_bridge.py
+```
+
+The script prompts you for a natural language question, forwards it to ChatGPT, and then performs a sample API request using the generated instructions. Customize the behavior to fit your needs and security requirements.
+
+### OpenAPI schema for GPT Actions
+
+To let a custom GPT call SKY API endpoints directly, this repository provides an `openapi.yaml` specification describing constituent search and note creation. When building your GPT, open the **Actions** tab and upload this file. Provide your OAuth client ID, secret, and subscription key so ChatGPT can authorize requests. The schema defines both an OAuth2 client credentials flow and a header-based `Bb-Api-Subscription-Key` API key.
+
+1. In the GPT builder, select **Actions → Upload schema** and choose `openapi.yaml`.
+2. Configure OAuth2 client credentials using the values from your `.env` file or environment variables.
+3. After deployment, ChatGPT can call the listed endpoints to search constituents or create notes without Power BI.
+
