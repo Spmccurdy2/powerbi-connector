@@ -126,8 +126,8 @@ This repository now includes a sample Python script (`chat_bridge.py`) that demo
 ### Prerequisites
 
 - Python 3
-- The `requests` library: install with `pip install requests`
-- Environment variables with your credentials:
+- Install dependencies with `pip install -r requirements.txt`
+- Environment variables with your credentials (see `.env.example`):
   - `BLACKBAUD_CLIENT_ID`
   - `BLACKBAUD_CLIENT_SECRET`
   - `BLACKBAUD_SUBSCRIPTION_KEY`
@@ -142,4 +142,12 @@ python chat_bridge.py
 ```
 
 The script prompts you for a natural language question, forwards it to ChatGPT, and then performs a sample API request using the generated instructions. Customize the behavior to fit your needs and security requirements.
+
+### OpenAPI schema for GPT Actions
+
+To let a custom GPT call SKY API endpoints directly, this repository provides an `openapi.yaml` specification describing constituent search and note creation. When building your GPT, open the **Actions** tab and upload this file. Provide your OAuth client ID, secret, and subscription key so ChatGPT can authorize requests.
+
+1. In the GPT builder, select **Actions → Upload schema** and choose `openapi.yaml`.
+2. Configure OAuth2 client credentials using the values from your `.env` file or environment variables.
+3. After deployment, ChatGPT can call the listed endpoints to search constituents or create notes without Power BI.
 
